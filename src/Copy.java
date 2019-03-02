@@ -4,6 +4,7 @@ public class Copy {
     public static void copyFilesUsingFileStreams(String srcPath, String destPath ){
         File src = new File(srcPath);
         File dest = new File(destPath);
+        copyDir(src, dest);
     }
 
     private static void copyFile(File src, File dest) {
@@ -20,6 +21,19 @@ public class Copy {
     }
 
     private static void copyDir(File src, File dest) {
+        dest.mkdirs();
+        File[] files = src.listFiles();
+        String destPath = dest.getAbsolutePath();
 
+        for (File file : files) {
+            String path = destPath + "/" + file.getName();
+            File copy = new File(path);
+
+            if (file.isDirectory()) {
+                copyDir(file, copy);
+            } else {
+                copyFile(file, copy);
+            }
+        }
     }
 }
