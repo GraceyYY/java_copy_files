@@ -37,6 +37,10 @@ public class Copy {
         for (File file : files) {
             String path = destPath + "/" + file.getName();
             File copy = new File(path);
+            if (copy.exists()) {
+                path = destPath + "/copied_" + file.getName();
+                copy = new File(path);
+            }
 
             if (file.isDirectory()) {
                 copyDir(file, copy);
